@@ -1,0 +1,26 @@
+{
+    "name": "diag/gluu-php-sdk",
+    "description": "Gluu SDK",
+    "authors": [
+        {
+            "name": "Toan Au",
+            "email": "toan.au@diag.vn"
+        }
+    ],
+    "require-dev": {
+        "vimeo/psalm": "^4.24",
+        "captainhook/captainhook": "^5.10",
+        "squizlabs/php_codesniffer": "3.*",
+        "phpunit/phpunit": "^9.5"
+
+    },
+    "psr-4": {
+        "Gluu\\": "src/",
+        "Helper\\" : "helper/"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.0",
+        "vlucas/phpdotenv": "^5.4",
+        "illuminate/support": "^8.83"
+    }
+}
