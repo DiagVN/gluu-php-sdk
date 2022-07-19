@@ -15,9 +15,12 @@
 
     },
     "psr-4": {
-        "Gluu\\": "gluu/"
+        "Gluu\\": "src/",
+        "Helper\\" : "helper/"
     },
     "require": {
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "vlucas/phpdotenv": "^5.4",
+        "illuminate/support": "^8.83"
     }
 }
