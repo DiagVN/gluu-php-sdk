@@ -15,12 +15,36 @@
 
     },
     "psr-4": {
-        "Gluu\\": "src/",
-        "Helper\\" : "helper/"
+        "Gluu\\": "src/"
     },
     "require": {
+        "php": " ^8.0",
         "guzzlehttp/guzzle": "^7.0",
         "vlucas/phpdotenv": "^5.4",
-        "illuminate/support": "^8.83"
+        "psr/log" : "*",
+        "ext-json": "*",
+        "psy/psysh": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gluu\\": "src/"
+        },
+        "files": [
+            "helper/helper.php",
+            "bootstrap.php"
+        ]
+
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gluu\\Providers\\GluuProvider"
+            ]
+        }
     }
 }
