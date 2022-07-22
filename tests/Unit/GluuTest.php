@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Gluu\App\Gluu;
+use Gluu\App\Controller\GluuController;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
@@ -38,7 +38,7 @@ class GluuTest extends TestCase
         $grantType = "";
         $scope =  "" ;
 
-        $gluu = new Gluu();
+        $gluu = new GluuController();
         $gluuHttpClient = $this->setUpHttpMock(200, '{"access_token" : '.self::ACCESS_TOKEN.'}');
         $gluu->setGluuHttpClient($gluuHttpClient);
         $result = $gluu->authenticate($username, $password, $grantType, $scope);
@@ -51,7 +51,7 @@ class GluuTest extends TestCase
         $password = "123456";
         $grantType = "";
         $scope =  "" ;
-        $gluu = new Gluu();
+        $gluu = new GluuController();
         $gluuHttpClient = $this->setUpHttpMock(401, '{"error":"authenticate fail"}');
         $gluu->setGluuHttpClient($gluuHttpClient);
         $result = $gluu->authenticate($username, $password, $grantType, $scope);
