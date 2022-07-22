@@ -1,11 +1,10 @@
 <?php
 
-namespace Gluu\App\Controller;
+namespace Gluu\App;
 
-use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
-class GluuController extends Controller
+class Gluu
 {
     private Client $gluuHttpClient;
 
