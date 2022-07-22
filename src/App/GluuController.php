@@ -1,23 +1,25 @@
 <?php
 
-namespace Gluu\App;
+namespace Gluu\App\Controller;
 
-class Gluu
+use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
+
+class GluuController extends Controller
 {
-
-    private \GuzzleHttp\Client $gluuHttpClient;
+    private Client $gluuHttpClient;
 
     public function __construct()
     {
-        $this->gluuHttpClient = new \GuzzleHttp\Client([
+        $this->gluuHttpClient = new Client([
             'verify' => false,
             'base_uri' => env('gluu_base_url'),
             'auth' => [env('gluu_client_id'),env('gluu_client_secret')],
-            'http_errors' => false
+            'http_errors' => true
         ]);
     }
 
-    public function setGluuHttpClient(\GuzzleHttp\Client $client): void
+    public function setGluuHttpClient(Client $client): void
     {
         $this->gluuHttpClient = $client;
     }
@@ -30,19 +32,19 @@ class Gluu
     ) : string|null {
         $response = $this->gluuHttpClient->post(env('authentication_uri'), [
             'form_params' =>
-            [
                 [
-                    "grant_type" => $grantType,
-                    "username" => $username,
-                    "password" => $password,
-                    "scope"   => $scope
+                    [
+                        "grant_type" => $grantType,
+                        "username" => $username,
+                        "password" => $password,
+                        "scope"   => $scope
+                    ]
                 ]
-            ]
         ]);
         if ($response->getStatusCode() == 200) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
-                return $object->access_token;
+                return $object;
             }
         }
         return null;
@@ -99,7 +101,10 @@ class Gluu
         ]);
 
         if ($response->getStatusCode()==201) {
-            return true;
+            $object = json_decode((string) $response->getBody());
+            if (is_object($object)) {
+                return $object;
+            }
         }
         return false;
     }
