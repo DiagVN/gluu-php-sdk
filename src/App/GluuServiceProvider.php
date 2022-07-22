@@ -13,7 +13,12 @@ class GluuServiceProvider extends ServiceProvider
     public function register()
     {
         // register our controller
-        $this->app->make('Gluu\App\Controller\GluuController');
+        $this->app->bind(Gluu\App\Controller\GluuController::class, function ($app){
+            $gluuBaseUrl = $app['config']->get('gluu.base_url');
+            $gluuClientId = $app['config']->get('gluu.client_id');
+            $gluuClientSecret = $app['config']->get('gluu.client_secret');
+            return new Gluu\App\Controller\GluuController($gluuBaseUrl, $gluuClientId, $gluuClientSecret);
+        });
     }
 
     /**

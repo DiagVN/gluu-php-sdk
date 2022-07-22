@@ -9,12 +9,12 @@ class GluuController extends Controller
 {
     private Client $gluuHttpClient;
 
-    public function __construct()
+    public function __construct($gluuBaseUrl, $gluuClientId, $gluuClientSecret)
     {
         $this->gluuHttpClient = new Client([
             'verify' => false,
-            'base_uri' => env('gluu_base_url'),
-            'auth' => [env('gluu_client_id'),env('gluu_client_secret')],
+            'base_uri' => $gluuBaseUrl,
+            'auth' => [$gluuClientId, $gluuClientSecret],
             'http_errors' => true
         ]);
     }
