@@ -29,7 +29,7 @@ class GluuClient
         string $grantType,
         ?string $scope = null
     ) : string|null {
-        $response = $this->gluuHttpClient->post(env('authentication_uri'), [
+        $response = $this->gluuHttpClient->post(config('gluu.authentication_uri'), [
             'form_params' =>
                 [
                     [
@@ -51,7 +51,7 @@ class GluuClient
 
     public function inspectToken(string $accessToken): mixed
     {
-        $response = $this->gluuHttpClient->get(env('inspect_token_uri'), ['query' => ['token' => $accessToken]]);
+        $response = $this->gluuHttpClient->get(config('gluu.inspect_token_uri'), ['query' => ['token' => $accessToken]]);
         if ($response->getStatusCode() == 200) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
@@ -61,13 +61,13 @@ class GluuClient
         return null;
     }
 
-    public function register(string $username, string $email, string $password): bool
+    public function register(string $username, string $email, string $phoneNumber, string $password): bool
     {
         $registerToken = $this->authenticate(null, null, 'client_credentials', "https://gluu.org/scim/users.write");
         if (is_null($registerToken)) {
             return false;
         }
-        $userSample = [
+        $userData = [
             "schemas"=> [
                 "urn:ietf:params:scim:schemas:core:2.0:User"
             ],
@@ -91,12 +91,19 @@ class GluuClient
                     "primary" => true
                 ]
             ],
+            "phoneNumbers" => [
+                [
+                    "value" =>  $phoneNumber,
+                    "display" =>  "string",
+                    "type" =>  "work",
+                ]
+            ],
         ];
-        $response = $this->gluuHttpClient->post(env('create_user_uri', '/identity/restv1/scim/v2/Users'), [
+        $response = $this->gluuHttpClient->post(config('gluu.create_user_uri'), [
             'auth' => null,
             'headers' => [ 'Authorization' => 'Bearer ' . $registerToken ],
             'json' =>
-                $userSample
+                $userData
         ]);
 
         if ($response->getStatusCode()==201) {
