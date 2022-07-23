@@ -4,7 +4,7 @@ namespace Gluu\App;
 
 use GuzzleHttp\Client;
 
-class Gluu
+class GluuClient
 {
     private Client $gluuHttpClient;
 
