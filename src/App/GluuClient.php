@@ -43,7 +43,7 @@ class GluuClient
         if ($response->getStatusCode() == 200) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
-                return $object;
+                return (array) $object;
             }
         }
         return null;
@@ -55,7 +55,7 @@ class GluuClient
         if ($response->getStatusCode() == 200) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
-                return $object;
+                return (array) $object;
             }
         }
         return null;
@@ -109,7 +109,7 @@ class GluuClient
         if ($response->getStatusCode()==201) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
-                return $object;
+                return (array) $object;
             }
         }
         return false;
