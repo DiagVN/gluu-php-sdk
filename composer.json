@@ -14,16 +14,17 @@
         "phpunit/phpunit": "^9.5"
 
     },
-    "psr-4": {
-        "Gluu\\": "src/"
-    },
     "require": {
         "php": " ^8.0",
         "guzzlehttp/guzzle": "^7.0",
         "vlucas/phpdotenv": "^5.4",
         "psr/log" : "*",
         "ext-json": "*",
-        "psy/psysh": "@stable"
+        "psy/psysh": "@stable",
+        "illuminate/support": "*",
+        "illuminate/config": "*",
+        "illuminate/container": "*",
+        "illuminate/contracts": "*"
     },
     "autoload": {
         "psr-4": {
@@ -43,7 +44,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Gluu\\Providers\\GluuProvider"
+                "Gluu\\Providers\\GluuServiceProvider"
             ]
         }
     }

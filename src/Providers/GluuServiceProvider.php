@@ -1,5 +1,5 @@
 <?php
-namespace Gluu\App\Provider;
+namespace Gluu\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
