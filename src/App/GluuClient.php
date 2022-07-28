@@ -28,7 +28,7 @@ class GluuClient
         ?string $password,
         string $grantType,
         ?string $scope = null
-    ) : string|null {
+    ) : ?string {
         $response = $this->gluuHttpClient->post(config('gluu.authentication_uri'), [
             'form_params' =>
                 [
@@ -51,7 +51,9 @@ class GluuClient
 
     public function inspectToken(string $accessToken): mixed
     {
-        $response = $this->gluuHttpClient->get(config('gluu.inspect_token_uri'), ['query' => ['token' => $accessToken]]);
+        $response = $this->gluuHttpClient->get(config('gluu.inspect_token_uri'), ['query' =>
+            ['token' => $accessToken]
+        ]);
         if ($response->getStatusCode() == 200) {
             $object = json_decode((string) $response->getBody());
             if (is_object($object)) {
