@@ -14,13 +14,41 @@
         "phpunit/phpunit": "^9.5"
 
     },
-    "psr-4": {
-        "Gluu\\": "src/",
-        "Helper\\" : "helper/"
-    },
     "require": {
+        "php": " ^8.0",
         "guzzlehttp/guzzle": "^7.0",
         "vlucas/phpdotenv": "^5.4",
-        "illuminate/support": "^8.83"
+        "psr/log" : "*",
+        "ext-json": "*",
+        "psy/psysh": "@stable",
+        "illuminate/support": "*",
+        "illuminate/config": "*",
+        "illuminate/container": "*",
+        "illuminate/contracts": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gluu\\": "src/"
+        },
+        "files": [
+            "helper/helper.php",
+            "bootstrap.php"
+        ]
+
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gluu\\Providers\\GluuServiceProvider"
+            ],
+            "aliases": {
+                "GluuClient": "Gluu\\Facade\\GluuClientFacade"
+            }
+        }
     }
 }
