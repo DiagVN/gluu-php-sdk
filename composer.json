@@ -45,7 +45,10 @@
         "laravel": {
             "providers": [
                 "Gluu\\Providers\\GluuServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "GluuClient": "Gluu\\Facade\\GluuClientFacade"
+            }
         }
     }
 }
